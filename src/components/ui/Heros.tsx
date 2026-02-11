@@ -7,15 +7,16 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-export default function Trailer() {
+
+export default function Heros() {
   return (
     <div>
       <img className="w-full lg:hidden" src="wicked.jpg" alt="wicked" />
-      <Carousel className="hidden lg:block">
+      <Carousel className="hidden lg:block relative">
         <CarouselContent>
           <CarouselItem>
             <div
-              className="relative w-full min-h-full bg-cover bg-center"
+              className="relative w-full min-h-full bg-cover h-screen bg-center"
               style={{ backgroundImage: "url('/wicked.jpg')" }}
             >
               {/* overlay */}
@@ -134,8 +135,8 @@ export default function Trailer() {
             </div>
           </CarouselItem>
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-20" />
+        <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-20" />
       </Carousel>
       <div className="lg:hidden">
         <div className="flex justify-center items-center gap-15 py-4 m:hidden">

@@ -1,11 +1,5 @@
+import { Movie } from "@/lib/types";
 import { Star } from "lucide-react";
-
-type Movie = {
-  id: number;
-  title: string;
-  rating: number;
-  image: string;
-};
 
 type MovieCardProps = {
   movie: Movie;
@@ -15,7 +9,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
   return (
     <div>
       <img
-        src={`https://image.tmdb.org/t/p/w500/${movie.image}`}
+        src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
         alt={movie.title}
         className="w-full rounded"
       />
@@ -23,7 +17,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
         <div className="flex items-center gap-1">
           <Star className="text-yellow-300 fill-yellow-300" size={16} />
           <span>
-            {movie.rating}
+            {movie.vote_average}
             <span className="text-gray-400">/10</span>
           </span>
         </div>

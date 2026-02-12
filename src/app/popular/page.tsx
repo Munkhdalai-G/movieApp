@@ -1,31 +1,52 @@
-import Footer from "@/components/ui/footer";
 import MovieCard from "@/components/ui/MovieCard";
+import { getPopularMovies } from "@/lib/get-popular-movies";
+import Link from "next/link";
+import { Film } from "lucide-react";
+import { Search } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import { Moon } from "lucide-react";
 
-export default function TopRated({}) {
-  const movies = [
-    { id: 1, title: "Dear Santa", rating: 6.9, image: "dear santa.jpg" },
-    { id: 2, title: "Dear Santa", rating: 6.9, image: "dear santa.jpg" },
-    { id: 3, title: "Dear Santa", rating: 6.9, image: "dear santa.jpg" },
-    { id: 4, title: "Dear Santa", rating: 6.9, image: "dear santa.jpg" },
-    { id: 5, title: "Dear Santa", rating: 6.9, image: "dear santa.jpg" },
-    { id: 6, title: "Dear Santa", rating: 6.9, image: "dear santa.jpg" },
-    { id: 7, title: "Dear Santa", rating: 6.9, image: "dear santa.jpg" },
-    { id: 8, title: "Dear Santa", rating: 6.9, image: "dear santa.jpg" },
-    { id: 9, title: "Dear Santa", rating: 6.9, image: "dear santa.jpg" },
-    { id: 10, title: "Dear Santa", rating: 6.9, image: "dear santa.jpg" },
-  ];
-
+export default async function UpComing() {
+  const { results } = await getPopularMovies();
   return (
     <div>
+      <div className="flex justify-between h-6 py-5 items-center px-3 lg:py-7 ">
+        <Link href={"/"}>
+          <div className="flex  text-indigo-700 h-7 items-center font-bold lg:pl-15 ">
+            <Film className="stroke-1 p-0.5 lg:p-0" />
+            Movie Z
+          </div>
+        </Link>
+        <div className=" flex gap-4 ">
+          <button className="flex items-center border rounded-lg w-25 justify-center gap-1 font-medium max-lg:hidden">
+            <ChevronDown size={16} />
+            Genre
+          </button>
+          <input
+            className="border rounded-lg p-1.5 w-80 hidden lg:block"
+            type="text"
+            name=""
+            id=""
+            placeholder="🔎   type to search"
+          />
+        </div>
+        <div className="flex gap-3 items-center lg:pr-15 ">
+          <button className="border rounded-md lg:p-1.5 ">
+            <Search className="stroke-1 p-1 lg:p-0.5" />
+          </button>
+          <button className="border rounded-md lg:p-1.5   ">
+            <Moon className="stroke-1 p-1 lg:p-0.5" />
+          </button>
+        </div>
+      </div>
       <div className=" flex justify-evenly pt-8 pb-3 items-center lg:justify-between lg:px-20">
-        <p className="font-bold text-2xl">Popular</p>
+        <p className="font-bold text-2xl">Top Rated</p>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-5 p-4 gap-4">
-        {movies.map((movie) => (
+        {results.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
       </div>
-      <Footer />;
     </div>
   );
 }

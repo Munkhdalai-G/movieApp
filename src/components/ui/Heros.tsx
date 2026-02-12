@@ -11,6 +11,7 @@ import {
 export default function Heros() {
   return (
     <div>
+      {/* className="absolute" */}
       <img className="w-full lg:hidden" src="wicked.jpg" alt="wicked" />
       <Carousel className="hidden lg:block relative">
         <CarouselContent>

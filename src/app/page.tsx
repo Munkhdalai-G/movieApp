@@ -12,7 +12,6 @@ import {
   SearchBarLoading,
   SearchBarNoResult,
 } from "@/components/ui/searchBar";
-import Detail from "@/components/ui/Detail";
 
 export default async function Home() {
   return (
@@ -24,7 +23,7 @@ export default async function Home() {
         <TopRated />
         <Popular />
         <Footer />
-        <Detail />
+
         {/* <SearchBar />
         <SearchBarLoading />
         <SearchBarNoResult />

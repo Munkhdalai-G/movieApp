@@ -1,15 +1,24 @@
-import Footer from "./footer";
 import { Search } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import { Moon } from "lucide-react";
 import { Film } from "lucide-react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import MovieCard from "./MovieCard";
 import { getUpcomingMovies } from "@/lib/get-upcoming-movies";
+import MovieCard from "@/components/ui/MovieCard";
+import Footer from "@/components/ui/footer";
+import { getMovieById } from "@/lib/get-movie-by-id";
 
-export default async function Detail() {
+export default async function Detail({
+  params,
+}: {
+  params: Promise<{ movieId: string }>;
+}) {
+  const { movieId } = await params;
   const { results } = await getUpcomingMovies();
+
+  const movie = await getMovieById(movieId);
+
   return (
     <div>
       <div className="flex justify-between h-6 py-5 items-center px-3 lg:py-7 ">
@@ -45,38 +54,34 @@ export default async function Detail() {
 
       {/*123456789*/}
       <div className="">
-        <img className="" src="wicked.jpg" alt="" />
-        <div className="">123</div>
+        <img
+          className=""
+          src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
+          alt=""
+        />
       </div>
       {/*123456789*/}
       <div className="flex gap-3 pl-4 pr-8 py-4">
         <div>
-          <img className="w-50 h-40" src="wicked.jpg" alt="" />
+          <img
+            className="w-50 h-40"
+            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+            alt=""
+          />
         </div>
         <div className="flex flex-col gap-3">
           <div className="flex flex-wrap gap-2.5">
-            <div className="flex items-center gap-1 font-bold border border-gray-200 rounded-xl px-1.5 py-1 text-xs ">
-              Fairy tale
-            </div>
-            <div className="flex items-center gap-1 font-bold border border-gray-200 rounded-xl px-1.5 py-1 text-xs ">
-              Pop Musical
-            </div>
-            <div className="flex items-center gap-1 font-bold border border-gray-200 rounded-xl px-1.5 py-1 text-xs ">
-              Fantasy
-            </div>
-            <div className="flex items-center gap-1 font-bold border border-gray-200 rounded-xl px-1.5 py-1 text-xs ">
-              Musical
-            </div>
-            <div className="flex items-center gap-1 font-bold border border-gray-200 rounded-xl px-1.5 py-1 text-xs ">
-              Romance
-            </div>
+            {movie?.genres?.map((genre) => (
+              <div
+                key={genre.id}
+                className="flex items-center gap-1 font-bold border border-gray-200 rounded-xl px-1.5 py-1 text-xs"
+              >
+                {genre.name}
+              </div>
+            ))}
           </div>
-          <div className="w-50">
-            Elphaba, a misunderstood young woman because of her green skin, and
-            Glinda, a popular girl, become friends at Shiz University in the
-            Land of Oz. After an encounter with the Wonderful Wizard of Oz,
-            their friendship reaches a crossroads.
-          </div>
+
+          <div className="w-50 text-sm leading-relaxed">{movie?.overview}</div>
         </div>
       </div>
       <div className="flex flex-col gap-3">

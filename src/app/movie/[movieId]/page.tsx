@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { Search, Star } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import { Moon } from "lucide-react";
 import { Film } from "lucide-react";
@@ -15,9 +15,8 @@ export default async function Detail({
   params: Promise<{ movieId: string }>;
 }) {
   const { movieId } = await params;
-  const { results } = await getUpcomingMovies();
-
   const movie = await getMovieById(movieId);
+  const { results } = await getUpcomingMovies();
 
   return (
     <div>
@@ -51,7 +50,26 @@ export default async function Detail({
         </div>
       </div>
       {/*123456789*/}
-
+      <div className="flex p-6 gap-15">
+        <div className="flex flex-col">
+          <div className="font-bold">{movie.original_title}</div>
+          <div>
+            {movie.release_date} · {movie.runtime}m
+          </div>
+        </div>
+        <div className="flex items-center">
+          <div className="pb-6 pr-1.5">
+            <Star className="fill-yellow-300 text-yellow-300" />
+          </div>
+          <div className="flex flex-col">
+            <div>
+              {movie.vote_average}
+              <span className="text-gray-500">/10</span>
+            </div>
+            <div>{movie.vote_count}k</div>
+          </div>
+        </div>
+      </div>
       {/*123456789*/}
       <div className="">
         <img
@@ -71,7 +89,7 @@ export default async function Detail({
         </div>
         <div className="flex flex-col gap-3">
           <div className="flex flex-wrap gap-2.5">
-            {movie?.genres?.map((genre) => (
+            {movie.genres.map((genre) => (
               <div
                 key={genre.id}
                 className="flex items-center gap-1 font-bold border border-gray-200 rounded-xl px-1.5 py-1 text-xs"
@@ -81,23 +99,23 @@ export default async function Detail({
             ))}
           </div>
 
-          <div className="w-50 text-sm leading-relaxed">{movie?.overview}</div>
+          <div className="w-50 text-sm leading-relaxed">{movie.overview}</div>
         </div>
       </div>
       <div className="flex flex-col gap-3">
         <div className="flex gap-19.5 pl-4">
           <div className="flex items-center font-bold">director</div>
-          <div className="pr-4">Jon M. Chu</div>
+          <div className="pr-4">{}</div>
         </div>
         <div className="h-px bg-gray-200 mx-2 rounded-2xl" />
         <div className="flex gap-21 pr-8 pl-4">
           <div className="flex items-center font-bold">Writers</div>
-          <div className="">Winnie Holzman · Dana Fox · Gregory Maguire</div>
+          <div className="">{}</div>
         </div>
         <div className="h-px bg-gray-200 mx-2  rounded-2xl" />
         <div className="flex gap-25 pr-4 pl-4">
           <div className="flex items-center font-bold">Stars</div>
-          <div className="">Cynthia Erivo · Ariana Grande · Jeff Goldblum</div>
+          <div className="">{}</div>
         </div>
         <div className="h-px bg-gray-200 mx-2  rounded-2xl" />
       </div>

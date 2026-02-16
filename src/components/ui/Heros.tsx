@@ -7,8 +7,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { getNowPlaying } from "@/lib/get-now-playing";
+import { getMovieById } from "@/lib/get-movie-by-id";
 
-export default function Heros() {
+export default async function Heros() {
   return (
     <div>
       {/* className="absolute" */}
@@ -29,7 +31,7 @@ export default function Heros() {
                   <p className="text-lg sm:text-xl">
                     Now Playing:
                     <span className="block text-2xl sm:text-3xl font-bold">
-                      Wicked
+                      {/* {Movie.} */}
                     </span>
                   </p>
 

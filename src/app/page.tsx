@@ -1,5 +1,3 @@
-import Footer from "@/components/ui/footer";
-import Header from "@/components/ui/header";
 import Heros from "@/components/ui/Heros";
 import UpComing from "@/components/ui/upcoming";
 import TopRated from "@/components/ui/toprated";
@@ -17,12 +15,10 @@ export default async function Home() {
   return (
     <SkeletonTheme baseColor="#1f1f1f" highlightColor="#2c2c2c">
       <>
-        <Header />
         <Heros />
         <UpComing />
         <TopRated />
         <Popular />
-        <Footer />
 
         {/* <SearchBar />
         <SearchBarLoading />
@@ -52,4 +48,5 @@ getTodo();
 // Genres
 // Trailer
 // Search
-//
+// dark ,light mode
+// skeleton

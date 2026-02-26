@@ -19,8 +19,8 @@ export default function MovieCard({ movie }: MovieCardProps) {
           <div className="flex items-center gap-1">
             <Star className="text-yellow-300 fill-yellow-300" size={16} />
             <span>
-              {movie.vote_average}
-              <span className="text-gray-400">/10</span>
+              {movie.vote_average?.toFixed(1)}
+              <span className="text-gray-500">/10</span>
             </span>
           </div>
           <p>{movie.title}</p>

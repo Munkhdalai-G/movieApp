@@ -1,13 +1,9 @@
-import { Search, Star } from "lucide-react";
-import { ChevronDown } from "lucide-react";
-import { Moon } from "lucide-react";
-import { Film } from "lucide-react";
+import { Star } from "lucide-react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { getUpcomingMovies } from "@/lib/get-upcoming-movies";
-import MovieCard from "@/components/ui/MovieCard";
-import Footer from "@/components/ui/footer";
 import { getMovieById } from "@/lib/get-movie-by-id";
+import MovieCard from "@/components/ui/MovieCard";
+import { getSimilarMovies } from "@/lib/get-similar-movies";
 
 export default async function Detail({
   params,
@@ -16,57 +12,27 @@ export default async function Detail({
 }) {
   const { movieId } = await params;
   const movie = await getMovieById(movieId);
-  const { results } = await getUpcomingMovies();
-
+  const { results: similarMovies } = await getSimilarMovies(movieId);
+  const firstTwoSimilarMovies = similarMovies.slice(0, 2);
   return (
     <div>
-      <div className="flex justify-between h-6 py-5 items-center px-3 lg:py-7 ">
-        <Link href={"/"}>
-          <div className="flex  text-indigo-700 h-7 items-center font-bold lg:pl-15 ">
-            <Film className="stroke-1 p-0.5 lg:p-0" />
-            Movie Z
-          </div>
-        </Link>
-        <div className=" flex gap-4 ">
-          <button className="flex items-center border rounded-lg w-25 justify-center gap-1 font-medium max-lg:hidden">
-            <ChevronDown size={16} />
-            Genre
-          </button>
-          <input
-            className="border rounded-lg p-1.5 w-80 hidden lg:block"
-            type="text"
-            name=""
-            id=""
-            placeholder="🔎   type to search"
-          />
-        </div>
-        <div className="flex gap-3 items-center lg:pr-15 ">
-          <button className="border rounded-md lg:p-1.5 ">
-            <Search className="stroke-1 p-1 lg:p-0.5" />
-          </button>
-          <button className="border rounded-md lg:p-1.5   ">
-            <Moon className="stroke-1 p-1 lg:p-0.5" />
-          </button>
-        </div>
-      </div>
-      {/*123456789*/}
       <div className="flex p-6 gap-15">
         <div className="flex flex-col">
           <div className="font-bold">{movie.original_title}</div>
           <div>
-            {movie.release_date} · {movie.runtime}m
+            {movie.release_date} · {movie.runtime}min
           </div>
         </div>
         <div className="flex items-center">
-          <div className="pb-6 pr-1.5">
-            <Star className="fill-yellow-300 text-yellow-300" />
+          <div className="pb-5 pr-1.5">
+            <Star className="fill-yellow-300 text-yellow-300 " />
           </div>
           <div className="flex flex-col">
             <div>
-              {movie.vote_average}
+              {movie.vote_average?.toFixed(1)}
               <span className="text-gray-500">/10</span>
             </div>
-            <div>{movie.vote_count}k</div>
+            <div className="text-gray-400 text-sm">{movie.vote_count}k </div>
           </div>
         </div>
       </div>
@@ -123,7 +89,7 @@ export default async function Detail({
       <div>
         <div className=" flex justify-evenly pt-8 pb-3 items-center lg:justify-between lg:px-20">
           <p className="font-bold text-2xl">More like this</p>
-          <Link href="/upcoming">
+          <Link href={`/similar?movieId=${movieId}`}>
             <button className="flex font-semibold text-l items-center">
               See more
               <ArrowRight />
@@ -131,12 +97,11 @@ export default async function Detail({
           </Link>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-5 p-4 gap-4">
-          {results.slice(0, 2).map((movie) => (
+          {firstTwoSimilarMovies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

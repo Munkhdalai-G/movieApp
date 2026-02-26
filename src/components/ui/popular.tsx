@@ -3,7 +3,7 @@ import MovieCard from "./MovieCard";
 import Link from "next/link";
 import { getPopularMovies } from "@/lib/get-popular-movies";
 
-export default async function UpComing() {
+export default async function Popular() {
   const { results } = await getPopularMovies();
 
   return (

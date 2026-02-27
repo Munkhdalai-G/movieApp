@@ -1,15 +1,23 @@
-// lib/get-upcoming-movies.ts
 import { MovieList } from "./types";
 
 const baseUrl = "https://api.themoviedb.org/3";
-const apiKey = process.env.TMDB_API_KEY; // recommended
+const accessToken =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTczYzYyMWJhZmM3MDEwZWE4ZmEyYmE4YjU5NTM5NiIsIm5iZiI6MTc3MDc4NDQ5OC44OTQsInN1YiI6IjY5OGMwNmYyMzE0ZGVhYzU4OWQ1NDExYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.t9aC3Jj0Et0C1dlnasfzMbyXxIJrwm8VZClHKL6-pYI";
+
+const options = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization: `Bearer ${accessToken}`,
+  },
+};
 
 export const getUpcomingMovies = async (
-  page: number = 1,
+  page: string | null = "1",
 ): Promise<MovieList> => {
-  const url = `${baseUrl}/movie/upcoming?language=en-US&page=${page}&api_key=${apiKey}`;
-  const response = await fetch(url);
-
-  const data: MovieList = await response.json();
+  const upcoming =
+    baseUrl + `/movie/upcoming?language=en-US&page=${page ?? "1"}`;
+  const response = await fetch(upcoming, options);
+  const data = await response.json();
   return data;
 };

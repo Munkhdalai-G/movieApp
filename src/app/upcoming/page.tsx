@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getUpcomingMovies } from "@/lib/get-upcoming-movies";
 import MovieCard from "@/components/ui/MovieCard";
 import {
@@ -13,118 +13,62 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Movie } from "@/lib/types";
+import { useSearchParams } from "next/navigation";
 
-export default function Upcoming() {
-  const [page, setPage] = useState(1);
+export default function UpComing() {
+  const searchParams = useSearchParams();
+  const page = searchParams.get("page");
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const fetchMovies = async () => {
-      try {
-        const data = await getUpcomingMovies(page);
-        setMovies(data.results.slice(0, 10));
-        setTotalPages(data.total_pages);
-      } catch (error) {
-        console.error("Failed to fetch movies:", error);
-      }
+      const data = await getUpcomingMovies(page);
+      setMovies(data.results);
     };
-
     fetchMovies();
   }, [page]);
 
   const changePageNumber = (pageNumber: number) => {
-    if (pageNumber >= 1 && pageNumber <= totalPages) {
-      setPage(pageNumber);
-    }
-  };
-
-  // Dynamic sliding pagination
-  const paginationPages = () => {
-    const pages: (number | "ellipsis")[] = [];
-
-    if (totalPages <= 5) {
-      // Show all pages if total is small
-      for (let i = 1; i <= totalPages; i++) pages.push(i);
-      return pages;
-    }
-
-    // Always show first page
-    pages.push(1);
-
-    // Show left ellipsis if current page is far from start
-    if (page > 3) pages.push("ellipsis");
-
-    // Show middle pages
-    const start = Math.max(2, page - 1);
-    const end = Math.min(totalPages - 1, page + 1);
-
-    for (let i = start; i <= end; i++) {
-      if (i !== 1 && i !== totalPages) pages.push(i);
-    }
-
-    // Show right ellipsis if current page is far from end
-    if (page < totalPages - 2) pages.push("ellipsis");
-
-    // Always show last page
-    pages.push(totalPages);
-
-    return pages;
+    // setPage(pageNumber);
   };
 
   return (
     <div>
       <div className="flex justify-evenly pt-2 pb-3 items-center lg:justify-between lg:px-20">
-        <p className="font-bold text-2xl">Upcoming</p>
+        <p className="font-bold text-2xl">Up Coming</p>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-5 p-4 gap-4">
-        {movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+        {movies.slice(0, 10).map((movie) => (
+          <div key={movie.id}>
+            <MovieCard movie={movie} />
+          </div>
         ))}
       </div>
 
-      <Pagination className="pb-3">
+      <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                changePageNumber(page - 1);
-              }}
-            />
+            <PaginationPrevious href={`?page=${Number(page) - 1}`} />
           </PaginationItem>
 
-          {paginationPages().map((pageNumber, idx) =>
-            pageNumber === "ellipsis" ? (
-              <PaginationItem key={`ellipsis-${idx}`}>
-                <PaginationEllipsis />
-              </PaginationItem>
-            ) : (
-              <PaginationItem key={pageNumber}>
-                <PaginationLink
-                  href="#"
-                  isActive={pageNumber === page}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    changePageNumber(pageNumber);
-                  }}
-                >
-                  {pageNumber}
-                </PaginationLink>
-              </PaginationItem>
-            ),
-          )}
+          {["1", "2", "3"].map((pageNumber) => (
+            <PaginationItem key={pageNumber}>
+              <PaginationLink
+                href={`?page=${pageNumber}`}
+                isActive={pageNumber === String(page)}
+              >
+                {pageNumber}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
 
           <PaginationItem>
-            <PaginationNext
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                changePageNumber(page + 1);
-              }}
-            />
+            <PaginationEllipsis />
+          </PaginationItem>
+
+          <PaginationItem>
+            <PaginationNext href={`?page=${Number(page) + 1}`} />
           </PaginationItem>
         </PaginationContent>
       </Pagination>

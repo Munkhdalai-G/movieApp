@@ -16,11 +16,11 @@ export default async function UpComing() {
           </button>
         </Link>
       </div>
-      {/* <div className="grid grid-cols-2 lg:grid-cols-5 p-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 p-4 gap-4">
         {results.slice(0, 10).map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}
-      </div> */}
+      </div>
     </div>
   );
 }

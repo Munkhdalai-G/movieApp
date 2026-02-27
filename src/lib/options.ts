@@ -1,11 +1,9 @@
-const accessToken = "YOUR_TMDB_ACCESS_TOKEN";
+export const baseUrl = "https://api.themoviedb.org/3";
 
-export const BASE_URL = "https://api.themoviedb.org/3";
-
-export const options: RequestInit = {
+export const options = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization: `Bearer ${accessToken}`,
+    Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
   },
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getUpcomingMovies } from "@/lib/get-upcoming-movies";
+import { getUpcomingMovies } from "@/lib/api/get-upcoming-movies";
 import MovieCard from "@/components/ui/MovieCard";
 import {
   Pagination,
@@ -12,7 +12,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Movie } from "@/lib/types";
+import { Movie } from "@/lib/api/types";
 import { useSearchParams } from "next/navigation";
 
 export default function UpComing() {

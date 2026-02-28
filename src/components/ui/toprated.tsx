@@ -1,7 +1,7 @@
 import Link from "next/link";
 import MovieCard from "./MovieCard";
 import { ArrowRight } from "lucide-react";
-import { getTopRatedMovies } from "@/lib/get-top-rated-movies";
+import { getTopRatedMovies } from "@/lib/api/get-top-rated-movies";
 
 export default async function TopRated() {
   const { results } = await getTopRatedMovies();

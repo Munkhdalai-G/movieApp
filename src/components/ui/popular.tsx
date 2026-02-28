@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import MovieCard from "./MovieCard";
 import Link from "next/link";
-import { getPopularMovies } from "@/lib/get-popular-movies";
+import { getPopularMovies } from "@/lib/api/get-popular-movies";
 
 export default async function Popular() {
   const { results } = await getPopularMovies();

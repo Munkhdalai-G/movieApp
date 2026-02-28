@@ -1,5 +1,5 @@
 import MovieCard from "@/components/ui/MovieCard";
-import { getTopRatedMovies } from "@/lib/get-top-rated-movies";
+import { getTopRatedMovies } from "@/lib/api/get-top-rated-movies";
 
 export default async function Toprated() {
   const { results } = await getTopRatedMovies();

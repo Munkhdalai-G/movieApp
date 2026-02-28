@@ -4,6 +4,7 @@ import TopRated from "@/components/ui/toprated";
 import Popular from "@/components/ui/popular";
 import "react-loading-skeleton/dist/skeleton.css";
 import { SkeletonTheme } from "react-loading-skeleton";
+
 import { Genres, GenresSecond } from "@/components/ui/genres";
 import {
   SearchBar,

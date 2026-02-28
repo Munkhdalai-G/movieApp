@@ -1,4 +1,4 @@
-import { Movie } from "@/lib/types";
+import { Movie } from "@/lib/api/types";
 import { Star } from "lucide-react";
 import Link from "next/link";
 

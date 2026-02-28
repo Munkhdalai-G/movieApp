@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import MovieCard from "./MovieCard";
-import { getUpcomingMovies } from "@/lib/get-upcoming-movies";
+import { getUpcomingMovies } from "@/lib/api/get-upcoming-movies";
 
 export default async function Detail() {
   const { results } = await getUpcomingMovies();

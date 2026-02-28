@@ -1,5 +1,5 @@
 import MovieCard from "@/components/ui/MovieCard";
-import { getSimilarMovies } from "@/lib/get-similar-movies";
+import { getSimilarMovies } from "@/lib/api/get-similar-movies";
 
 type SimilarType = {
   searchParams: Promise<{ [key: string]: string }>;

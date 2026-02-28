@@ -1,9 +1,9 @@
 import { Star } from "lucide-react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { getMovieById } from "@/lib/get-movie-by-id";
+import { getMovieById } from "@/lib/api/get-movie-by-id";
 import MovieCard from "@/components/ui/MovieCard";
-import { getSimilarMovies } from "@/lib/get-similar-movies";
+import { getSimilarMovies } from "@/lib/api/get-similar-movies";
 
 export default async function Detail({
   params,

@@ -1,5 +1,5 @@
 import MovieCard from "@/components/ui/MovieCard";
-import { getPopularMovies } from "@/lib/get-popular-movies";
+import { getPopularMovies } from "@/lib/api/get-popular-movies";
 
 export default async function Popular() {
   const { results } = await getPopularMovies();

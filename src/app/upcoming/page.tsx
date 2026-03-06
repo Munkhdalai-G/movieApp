@@ -3,34 +3,42 @@
 import { useEffect, useState } from "react";
 import { getUpcomingMovies } from "@/lib/api/get-upcoming-movies";
 import MovieCard from "@/components/ui/MovieCard";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import { Movie } from "@/lib/api/types";
 import { useSearchParams } from "next/navigation";
+import PaginationCopy from "@/components/ui/paginationCopy";
 
 export default function UpComing() {
   const searchParams = useSearchParams();
   const page = searchParams.get("page");
+  const currentPage = Number(page) || 1;
+
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const data = await getUpcomingMovies(page);
+      const data = await getUpcomingMovies(String(currentPage));
       setMovies(data.results);
+      setTotalPages(data.total_pages);
     };
     fetchMovies();
-  }, [page]);
+  }, [currentPage]);
 
-  const changePageNumber = (pageNumber: number) => {
-    // setPage(pageNumber);
+  // Clean pagination: numbers only, no dead code
+  const generatePagination = (current: number, total: number): number[] => {
+    const pages: number[] = [];
+
+    const start = Math.max(1, current - 1);
+    const end = Math.min(total, current + 1);
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+
+    return pages;
   };
+
+  const pages = generatePagination(currentPage, totalPages);
 
   return (
     <div>
@@ -46,32 +54,11 @@ export default function UpComing() {
         ))}
       </div>
 
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious href={`?page=${Number(page) - 1}`} />
-          </PaginationItem>
-
-          {["1", "2", "3"].map((pageNumber) => (
-            <PaginationItem key={pageNumber}>
-              <PaginationLink
-                href={`?page=${pageNumber}`}
-                isActive={pageNumber === String(page)}
-              >
-                {pageNumber}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-
-          <PaginationItem>
-            <PaginationNext href={`?page=${Number(page) + 1}`} />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+      <PaginationCopy
+        currentPage={currentPage}
+        totalPages={totalPages}
+        pages={pages}
+      />
     </div>
   );
 }

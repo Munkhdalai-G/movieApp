@@ -157,3 +157,8 @@ export interface Result {
   vote_average: number;
   vote_count: number;
 }
+export interface PaginationCopyProps {
+  currentPage: number;
+  totalPages: number;
+  pages: (number | "...")[];
+}

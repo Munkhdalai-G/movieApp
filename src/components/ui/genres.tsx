@@ -30,10 +30,9 @@ const genres = [
   "Western",
 ];
 
-export function Genres() {
+export function GenresDrop() {
   return (
-    <div className="flex justify-center  pt-1">
-      {/*relative to Hero onclick*/}
+    <div className="absolute top-full left-0 right-0 z-50 flex justify-center pt-1">
       <div className="border shadow-2xl border-gray-300 w-77 rounded-2xl bg-white">
         {/* Header */}
         <div className="flex flex-col gap-1 px-4 pt-4 pb-2">
@@ -58,7 +57,7 @@ export function Genres() {
     </div>
   );
 }
-export function GenresSecond() {
+export function GenresMain() {
   return (
     <div className="flex justify-center relative pt-1">
       <div className="w-90">

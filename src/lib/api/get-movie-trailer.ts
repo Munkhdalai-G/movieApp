@@ -1,20 +1,28 @@
+// lib/api/get-movie-trailer.ts
+import { MovieTrailer } from "./types";
+
 const baseUrl = "https://api.themoviedb.org/3";
+const accessToken =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTczYzYyMWJhZmM3MDEwZWE4ZmEyYmE4YjU5NTM5NiIsIm5iZiI6MTc3MDc4NDQ5OC44OTQsInN1YiI6IjY5OGMwNmYyMzE0ZGVhYzU4OWQ1NDExYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.t9aC3Jj0Et0C1dlnasfzMbyXxIJrwm8VZClHKL6-pYI";
 
-export const getTrailer = async (id: number) => {
-  const response = await fetch(`${baseUrl}/movie/${id}/videos?language=en-US`, {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
-    },
-    next: { revalidate: 60 }, // optional caching
-  });
+const options = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization: `Bearer ${accessToken}`,
+  },
+};
 
-  const data = await response.json();
-
-  const trailer = data.results.find(
-    (video: any) => video.type === "Trailer" && video.site === "YouTube",
+export const getMovieTrailer = async (
+  movieId: string,
+): Promise<string | null> => {
+  const response = await fetch(
+    `${baseUrl}/movie/${movieId}/videos?language=en-US`,
+    options,
   );
-
-  return trailer?.key || null;
+  const data = await response.json();
+  const trailer = data.results?.find(
+    (v: any) => v.type === "Trailer" && v.site === "YouTube",
+  );
+  return trailer ? `https://www.youtube.com/watch?v=${trailer.key}` : null;
 };

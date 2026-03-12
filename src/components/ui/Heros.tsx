@@ -28,8 +28,8 @@ export default async function Heros() {
               </div>
 
               {/* CONTENT */}
-              <div className="flex flex-col justify-center px-6 sm:px-12 lg:px-16 py-8 bg-white">
-                <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
+              <div className="flex flex-col justify-center px-6 sm:px-12 lg:px-16  ">
+                <div className="flex pt-5 flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
                   <p className="text-lg sm:text-xl">
                     Now Playing:
                     <span className="block text-2xl sm:text-3xl font-bold">

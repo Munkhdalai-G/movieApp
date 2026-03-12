@@ -4,13 +4,7 @@ import TopRated from "@/components/ui/toprated";
 import Popular from "@/components/ui/popular";
 import "react-loading-skeleton/dist/skeleton.css";
 import { SkeletonTheme } from "react-loading-skeleton";
-
-import { Genres, GenresSecond } from "@/components/ui/genres";
-import {
-  SearchBar,
-  SearchBarLoading,
-  SearchBarNoResult,
-} from "@/components/ui/searchBar";
+import { GenresDrop, GenresMain } from "@/components/ui/genres";
 
 export default async function Home() {
   return (
@@ -20,12 +14,7 @@ export default async function Home() {
         <UpComing />
         <TopRated />
         <Popular />
-
-        {/* <SearchBar />
-        <SearchBarLoading />
-        <SearchBarNoResult />
-        <Genres />
-        <GenresSecond /> */}
+        <GenresMain />
       </>
     </SkeletonTheme>
   );

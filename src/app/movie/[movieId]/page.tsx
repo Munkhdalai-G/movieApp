@@ -1,9 +1,11 @@
-import { Star } from "lucide-react";
+import { Play, Star } from "lucide-react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getMovieById } from "@/lib/api/get-movie-by-id";
 import MovieCard from "@/components/ui/MovieCard";
 import { getSimilarMovies } from "@/lib/api/get-similar-movies";
+import TrailerButton from "@/components/ui/WatchTrailerButton";
+import { getMovieTrailer } from "@/lib/api/get-movie-trailer";
 
 export default async function Detail({
   params,
@@ -11,18 +13,20 @@ export default async function Detail({
   params: Promise<{ movieId: string }>;
 }) {
   const { movieId } = await params;
+  const trailerUrl = await getMovieTrailer(movieId);
   const movie = await getMovieById(movieId);
   const { results: similarMovies } = await getSimilarMovies(movieId);
   const firstTwoSimilarMovies = similarMovies.slice(0, 2);
   return (
     <div>
-      <div className="flex p-6 gap-15">
+      <div className="flex px-6 py-3 gap-15">
         <div className="flex flex-col">
           <div className="font-bold">{movie.original_title}</div>
           <div>
             {movie.release_date} · {movie.runtime}min
           </div>
         </div>
+
         <div className="flex items-center">
           <div className="pb-5 pr-1.5">
             <Star className="fill-yellow-300 text-yellow-300 " />
@@ -37,12 +41,15 @@ export default async function Detail({
         </div>
       </div>
       {/*123456789*/}
-      <div className="">
+      <div className="relative">
         <img
-          className=""
+          className="w-full"
           src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
           alt=""
         />
+        <div className="absolute bottom-3 left-3">
+          <TrailerButton trailerUrl={trailerUrl} />
+        </div>
       </div>
       {/*123456789*/}
       <div className="flex gap-3 pl-4 pr-8 py-4">
@@ -105,3 +112,38 @@ export default async function Detail({
     </div>
   );
 }
+
+// {/* <div>
+//       <div className="flex px-6 py-3 gap-15">
+//         {/* Title + date */}
+//         <div className="flex flex-col">
+//           <div className="font-bold">{movie.original_title}</div>
+//           <div>
+//             {movie.release_date} · {movie.runtime}min
+//           </div>
+//         </div>
+
+//         {/* Rating — bottom left */}
+//         <div className="flex items-end">
+//           <div className="flex items-center">
+//             <div className="pb-5 pr-1.5">
+//               <Star className="fill-yellow-300 text-yellow-300" />
+//             </div>
+//             <div className="flex flex-col">
+//               <div>
+//                 {movie.vote_average?.toFixed(1)}
+//                 <span className="text-gray-500">/10</span>
+//               </div>
+//               <div className="text-gray-400 text-sm">{movie.vote_count}k</div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Trailer button — bottom left */}
+//         <div className="flex items-end">
+//           <TrailerButton trailerUrl={trailerUrl} />
+//         </div>
+//       </div>
+
+//       {/* rest of your code stays the same... */}
+//     </div> */}

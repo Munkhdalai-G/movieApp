@@ -12,6 +12,10 @@ export interface Genre {
   name: string;
 }
 
+export interface GenreList {
+  genres: Genre[];
+}
+
 // ─── Movie ───────────────────────────────────────────────────────────────────
 
 export interface Movie {

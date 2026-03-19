@@ -4,7 +4,7 @@ import { Film } from "lucide-react";
 
 export default function Footer() {
   return (
-    <div className="bg-indigo-700 text-white h-75 flex flex-col gap-5 py-8 px-5 lg:flex-row lg:justify-between lg:pt-15 ">
+    <div className="bg-indigo-700 text-white h-75 flex flex-col gap-5 py-8 px-5 lg:flex-row lg:justify-between lg:pt-15 mt-2 ">
       <div className="lg:flex lg:flex-col lg:pl-20">
         <div className="flex pb-2 font-bold ">
           <Film className="stroke-1" />

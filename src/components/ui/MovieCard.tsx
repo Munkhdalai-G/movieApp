@@ -15,15 +15,15 @@ export default function MovieCard({ movie }: MovieCardProps) {
           alt={movie.title}
           className="w-full rounded"
         />
-        <div className="bg-gray-100 flex flex-col pl-2 py-2">
-          <div className="flex items-center gap-1">
+        <div className="bg-gray-100 flex flex-col pl-2 py-2 dark:border border-white ">
+          <div className="flex items-center gap-1 ">
             <Star className="text-yellow-300 fill-yellow-300" size={16} />
-            <span>
+            <span className="dark:text-gray-500">
               {movie.vote_average?.toFixed(1)}
               <span className="text-gray-500">/10</span>
             </span>
           </div>
-          <p>{movie.title}</p>
+          <p className="dark:text-black">{movie.title}</p>
         </div>
       </div>
     </Link>

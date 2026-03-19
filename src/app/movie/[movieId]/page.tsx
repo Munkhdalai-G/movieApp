@@ -6,6 +6,7 @@ import MovieCard from "@/components/ui/MovieCard";
 import { getSimilarMovies } from "@/lib/api/get-similar-movies";
 import TrailerButton from "@/components/ui/WatchTrailerButton";
 import { getMovieTrailer } from "@/lib/api/get-movie-trailer";
+import { getMovieCredits } from "@/lib/api/get-movie-crew-by-id";
 
 export default async function Detail({
   params,
@@ -16,7 +17,22 @@ export default async function Detail({
   const trailerUrl = await getMovieTrailer(movieId);
   const movie = await getMovieById(movieId);
   const { results: similarMovies } = await getSimilarMovies(movieId);
+  const credits = await getMovieCredits(movieId);
   const firstTwoSimilarMovies = similarMovies.slice(0, 2);
+  const director =
+    credits.crew.find((c) => c.job === "Director")?.name ?? "N/A";
+  const writers =
+    credits.crew
+      .filter((c) => c.department === "Writing")
+      .slice(0, 3)
+      .map((c) => c.name)
+      .join(", ") || "N/A";
+  const stars =
+    credits.cast
+      .slice(0, 3)
+      .map((c) => c.name)
+      .join(", ") || "N/A";
+
   return (
     <div>
       <div className="flex px-6 py-3 gap-15">
@@ -78,17 +94,17 @@ export default async function Detail({
       <div className="flex flex-col gap-3">
         <div className="flex gap-19.5 pl-4">
           <div className="flex items-center font-bold">director</div>
-          <div className="pr-4">{}</div>
+          <div className="pr-4">{director}</div>
         </div>
         <div className="h-px bg-gray-200 mx-2 rounded-2xl" />
         <div className="flex gap-21 pr-8 pl-4">
           <div className="flex items-center font-bold">Writers</div>
-          <div className="">{}</div>
+          <div className="">{writers}</div>
         </div>
         <div className="h-px bg-gray-200 mx-2  rounded-2xl" />
         <div className="flex gap-25 pr-4 pl-4">
           <div className="flex items-center font-bold">Stars</div>
-          <div className="">{}</div>
+          <div className="">{stars}</div>
         </div>
         <div className="h-px bg-gray-200 mx-2  rounded-2xl" />
       </div>
@@ -112,38 +128,3 @@ export default async function Detail({
     </div>
   );
 }
-
-// {/* <div>
-//       <div className="flex px-6 py-3 gap-15">
-//         {/* Title + date */}
-//         <div className="flex flex-col">
-//           <div className="font-bold">{movie.original_title}</div>
-//           <div>
-//             {movie.release_date} · {movie.runtime}min
-//           </div>
-//         </div>
-
-//         {/* Rating — bottom left */}
-//         <div className="flex items-end">
-//           <div className="flex items-center">
-//             <div className="pb-5 pr-1.5">
-//               <Star className="fill-yellow-300 text-yellow-300" />
-//             </div>
-//             <div className="flex flex-col">
-//               <div>
-//                 {movie.vote_average?.toFixed(1)}
-//                 <span className="text-gray-500">/10</span>
-//               </div>
-//               <div className="text-gray-400 text-sm">{movie.vote_count}k</div>
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Trailer button — bottom left */}
-//         <div className="flex items-end">
-//           <TrailerButton trailerUrl={trailerUrl} />
-//         </div>
-//       </div>
-
-//       {/* rest of your code stays the same... */}
-//     </div> */}

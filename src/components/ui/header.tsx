@@ -15,12 +15,10 @@ export default function Header() {
   const [isDark, setIsDark] = useState(false);
   const [isGenreOpen, setIsGenreOpen] = useState(false);
 
-  // Mobile
   const [mobileQuery, setMobileQuery] = useState("");
   const [mobileResults, setMobileResults] = useState<Movie[]>([]);
   const [mobileStatus, setMobileStatus] = useState<Status>("idle");
 
-  // Desktop
   const [desktopQuery, setDesktopQuery] = useState("");
   const [desktopResults, setDesktopResults] = useState<Movie[]>([]);
   const [desktopStatus, setDesktopStatus] = useState<Status>("idle");
@@ -29,12 +27,10 @@ export default function Header() {
   const mobileInputRef = useRef<HTMLInputElement>(null);
   const genreRef = useRef<HTMLDivElement>(null);
 
-  // Dark mode
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDark);
   }, [isDark]);
 
-  // Close genre dropdown on outside click
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (genreRef.current && !genreRef.current.contains(e.target as Node)) {
@@ -45,7 +41,6 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  // Step 2: Call getSearch after debounce
   const fetchResults = useCallback(async (query: string, isMobile: boolean) => {
     const setStatus = isMobile ? setMobileStatus : setDesktopStatus;
     const setResults = isMobile ? setMobileResults : setDesktopResults;
@@ -68,7 +63,6 @@ export default function Header() {
     }
   }, []);
 
-  // Step 1: Fires on every keystroke, debounces fetch by 400ms
   const handleQueryChange = (value: string, isMobile: boolean) => {
     if (isMobile) setMobileQuery(value);
     else setDesktopQuery(value);
@@ -93,7 +87,20 @@ export default function Header() {
     setDesktopStatus("idle");
   };
 
-  // Step 3: Pick which searchBar component to show
+  // ✅ onClose clears state and closes the dropdown
+  const handleClose = (isMobile: boolean) => {
+    if (isMobile) {
+      setMobileQuery("");
+      setMobileResults([]);
+      setMobileStatus("idle");
+      setIsSearchOpen(false);
+    } else {
+      setDesktopQuery("");
+      setDesktopResults([]);
+      setDesktopStatus("idle");
+    }
+  };
+
   const renderDropdown = (isMobile: boolean) => {
     const status = isMobile ? mobileStatus : desktopStatus;
     const results = isMobile ? mobileResults : desktopResults;
@@ -102,12 +109,19 @@ export default function Header() {
     if (status === "idle") return null;
     if (status === "loading") return <SearchBarLoading />;
     if (results.length === 0) return <SearchBarNoResult />;
-    return <SearchBar movies={results} query={query} />;
+
+    // ✅ Pass onClose here
+    return (
+      <SearchBar
+        movies={results}
+        query={query}
+        onClose={() => handleClose(isMobile)}
+      />
+    );
   };
 
   return (
     <div className="relative">
-      {/* ── Normal header ── */}
       {!isSearchOpen && (
         <div className="flex justify-between h-6 py-5 items-center px-3 lg:py-7">
           <Link href="/">
@@ -118,11 +132,10 @@ export default function Header() {
           </Link>
 
           <div className="flex gap-4">
-            {/* Genre button + dropdown */}
-            <div className="relative max-lg:hidden" ref={genreRef}>
+            <div className="relative " ref={genreRef}>
               <button
                 onClick={() => setIsGenreOpen((prev) => !prev)}
-                className="flex items-center border rounded-lg w-25 justify-center gap-1 font-medium"
+                className="flex items-center border rounded-lg w-25 h-8.5 justify-center gap-1 font-medium"
               >
                 <ChevronDown
                   size={16}
@@ -130,8 +143,6 @@ export default function Header() {
                 />
                 Genre
               </button>
-
-              {/* GenresDrop — absolute, anchored to this button */}
               {isGenreOpen && <GenresDrop />}
             </div>
 
@@ -142,7 +153,7 @@ export default function Header() {
                 <input
                   className="p-1.5 w-full outline-none bg-transparent text-sm placeholder-gray-400 dark:text-white"
                   type="text"
-                  placeholder="🔎   type to search"
+                  placeholder=" type to search"
                   value={desktopQuery}
                   onChange={(e) => handleQueryChange(e.target.value, false)}
                 />
@@ -180,11 +191,10 @@ export default function Header() {
         </div>
       )}
 
-      {/* ── Mobile search bar ── */}
+      {/* Mobile search bar */}
       {isSearchOpen && (
         <div className="relative">
           <div className="flex justify-between h-6 py-5 items-center px-3 gap-7 lg:py-7">
-            {/* Mobile genre button */}
             <div ref={genreRef}>
               <button
                 className="border rounded-md lg:p-1.5"
@@ -208,6 +218,7 @@ export default function Header() {
                 className="w-full text-xs outline-none bg-transparent placeholder-gray-400 dark:text-white"
               />
             </div>
+
             <button
               className="border rounded-md lg:p-1.5"
               onClick={clearMobile}

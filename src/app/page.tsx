@@ -24,4 +24,4 @@ export default async function Home({
   );
 }
 
-// mobile ----- css ,  details--director writer stars,
+

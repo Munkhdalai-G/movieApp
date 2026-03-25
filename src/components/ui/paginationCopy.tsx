@@ -9,13 +9,13 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { PaginationCopyProps } from "@/lib/api/types";
+import { PaginationProps } from "@/lib/api/types";
 
 export default function PaginationCopy({
   currentPage,
   totalPages,
   pages,
-}: PaginationCopyProps) {
+}: PaginationProps) {
   return (
     <Pagination>
       <PaginationContent>

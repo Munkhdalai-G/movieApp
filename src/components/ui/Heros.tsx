@@ -24,7 +24,7 @@ export default async function Heros({
   );
 
   return (
-    <Carousel className="w-full">
+    <Carousel className="w-full relative">
       <CarouselContent>
         {movies.map((movie, index) => (
           <CarouselItem key={movie.id}>
@@ -57,8 +57,7 @@ export default async function Heros({
                   {movie.overview}
                 </p>
 
-                <div className="mt-6   px-2 py-2 rounded-md   w-45 bg-black text-white dark:border dark:border-white ">
-                  {/* ✅ Each movie gets its own trailer */}
+                <div className="mt-6 px-2 py-2 rounded-md w-45 bg-black text-white dark:border dark:border-white">
                   <TrailerButton trailerUrl={trailerUrls[index]} />
                 </div>
               </div>
@@ -67,8 +66,9 @@ export default async function Heros({
         ))}
       </CarouselContent>
 
-      <CarouselPrevious />
-      <CarouselNext />
+      {/* Buttons positioned on left/right edges of the image (50% of lg grid = 50% width) */}
+      <CarouselPrevious className="hidden lg:flex absolute left-2 top-1/2 -translate-y-1/2 z-10 dark: text-white" />
+      <CarouselNext className="hidden lg:flex absolute left-[calc(100%-3rem)] top-1/2 -translate-y-1/2 z-10 dark: text-white" />
     </Carousel>
   );
 }

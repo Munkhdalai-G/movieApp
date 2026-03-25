@@ -6,7 +6,7 @@ import { getGenres } from "@/lib/api/get-genres";
 import { Genre } from "@/lib/api/types";
 import { useRouter } from "next/navigation";
 
-export function GenresDrop({ onClose }: { onClose: () => void }) {
+export function GenresDrop({ onClose }: { onClose?: () => void }) {
   const [genres, setGenres] = useState<Genre[]>([]);
   const router = useRouter();
 
@@ -15,8 +15,8 @@ export function GenresDrop({ onClose }: { onClose: () => void }) {
   }, []);
 
   return (
-    <div className="absolute top-full left-0 right-0 z-50 flex justify-center pt-1">
-      <div className="border shadow-2xl border-gray-300 dark:border-gray-700 w-77 rounded-2xl bg-white dark:bg-gray-900">
+    <div className="absolute top-full left-0 z-50 pt-1 w-77 lg:w-130">
+      <div className="border shadow-2xl border-gray-300 dark:border-gray-700 w-full rounded-2xl bg-white dark:bg-gray-900">
         <div className="flex flex-col gap-1 px-4 pt-4 pb-2">
           <h2 className="font-bold text-2xl text-gray-900 dark:text-white">
             Genres
@@ -33,7 +33,7 @@ export function GenresDrop({ onClose }: { onClose: () => void }) {
               key={genre.id}
               onClick={() => {
                 router.push(`/genre/${genre.name.toLowerCase()}-${genre.id}`);
-                onClose(); // 👈 closes dropdown after navigation
+                onClose?.();
               }}
               className="flex items-center gap-1 font-bold border border-gray-200 dark:border-gray-600 rounded-xl px-1.5 py-1 text-xs text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
             >

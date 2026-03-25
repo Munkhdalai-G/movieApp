@@ -121,7 +121,7 @@ export default function Header() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative ">
       {!isSearchOpen && (
         <div className="flex justify-between h-6 py-5 items-center px-3 lg:py-7">
           <Link href="/">
@@ -132,7 +132,7 @@ export default function Header() {
           </Link>
 
           <div className="flex gap-4">
-            <div className="relative " ref={genreRef}>
+            <div className="relative hidden lg:flex" ref={genreRef}>
               <button
                 onClick={() => setIsGenreOpen((prev) => !prev)}
                 className="flex items-center border rounded-lg w-25 h-8.5 justify-center gap-1 font-medium"
@@ -143,7 +143,9 @@ export default function Header() {
                 />
                 Genre
               </button>
-              {isGenreOpen && <GenresDrop />}
+              {isGenreOpen && (
+                <GenresDrop onClose={() => setIsGenreOpen(false)} />
+              )}
             </div>
 
             {/* Desktop search */}

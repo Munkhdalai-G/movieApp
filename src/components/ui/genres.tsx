@@ -15,7 +15,7 @@ export function GenresDrop({ onClose }: { onClose?: () => void }) {
   }, []);
 
   return (
-    <div className="absolute top-full left-0 z-50 pt-1 w-77 lg:w-130">
+    <div className="absolute top-full left-0 z-50 pt-1 w-77 lg:w-130 ">
       <div className="border shadow-2xl border-gray-300 dark:border-gray-700 w-full rounded-2xl bg-white dark:bg-gray-900">
         <div className="flex flex-col gap-1 px-4 pt-4 pb-2">
           <h2 className="font-bold text-2xl text-gray-900 dark:text-white">

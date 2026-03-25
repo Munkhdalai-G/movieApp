@@ -1,14 +1,14 @@
 "use client";
 
+import { Suspense } from "react";
 import { useEffect, useState } from "react";
-import { getUpcomingMovies } from "@/lib/api/get-upcoming-movies";
 import MovieCard from "@/components/ui/MovieCard";
 import { Movie } from "@/lib/api/types";
 import { useSearchParams } from "next/navigation";
 import PaginationCopy from "@/components/ui/paginationCopy";
 import { getTopRatedMovies } from "@/lib/api/get-top-rated-movies";
 
-export default function TopRated() {
+function TopRatedContent() {
   const searchParams = useSearchParams();
   const page = searchParams.get("page");
   const currentPage = Number(page) || 1;
@@ -20,8 +20,8 @@ export default function TopRated() {
     const fetchMovies = async () => {
       try {
         const data = await getTopRatedMovies(String(currentPage));
-        setMovies(data.results ?? []); // fallback to empty array
-        setTotalPages(data.total_pages ?? 1); // fallback to 1 page
+        setMovies(data.results ?? []);
+        setTotalPages(data.total_pages ?? 1);
       } catch (error) {
         console.error("Failed to fetch top rated movies:", error);
         setMovies([]);
@@ -31,17 +31,11 @@ export default function TopRated() {
     fetchMovies();
   }, [currentPage]);
 
-  // Clean pagination: numbers only, no dead code
   const generatePagination = (current: number, total: number): number[] => {
     const pages: number[] = [];
-
     const start = Math.max(1, current - 1);
     const end = Math.min(total, current + 1);
-
-    for (let i = start; i <= end; i++) {
-      pages.push(i);
-    }
-
+    for (let i = start; i <= end; i++) pages.push(i);
     return pages;
   };
 
@@ -67,5 +61,13 @@ export default function TopRated() {
         pages={pages}
       />
     </div>
+  );
+}
+
+export default function TopRated() {
+  return (
+    <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
+      <TopRatedContent />
+    </Suspense>
   );
 }

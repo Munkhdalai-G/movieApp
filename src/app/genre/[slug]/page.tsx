@@ -6,6 +6,7 @@ import MovieCard from "@/components/ui/MovieCard";
 import PaginationCopy from "@/components/ui/paginationCopy";
 import { getMoviesByGenre } from "@/lib/api/get-movies-by-genre";
 import { Movie } from "@/lib/api/types";
+import { GenresMain } from "@/components/ui/genres";
 
 export default function GenrePage({
   params,
@@ -52,6 +53,7 @@ export default function GenrePage({
 
   return (
     <div>
+      <GenresMain />
       <div className="flex justify-evenly pt-2 pb-3 items-center lg:justify-between lg:px-20">
         <p className="font-bold text-2xl capitalize">{genreName}</p>
       </div>

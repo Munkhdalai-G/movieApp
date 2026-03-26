@@ -19,6 +19,7 @@ export default async function Detail({
   const { results: similarMovies } = await getSimilarMovies(movieId);
   const credits = await getMovieCredits(movieId);
   const firstTwoSimilarMovies = similarMovies.slice(0, 2);
+  const firstFiveSimilarMovies = similarMovies.slice(0, 5);
   const director =
     credits.crew.find((c) => c.job === "Director")?.name ?? "N/A";
   const writers =
@@ -34,7 +35,7 @@ export default async function Detail({
       .join(", ") || "N/A";
 
   return (
-    <div>
+    <div className="lg:px-130">
       <div className="flex px-6 py-3 gap-15">
         <div className="flex flex-col">
           <div className="font-bold">{movie.original_title}</div>
@@ -119,8 +120,13 @@ export default async function Detail({
             </button>
           </Link>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-5 p-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-5 p-4 gap-4 lg:hidden">
           {firstTwoSimilarMovies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </div>
+        <div className="hidden lg:flex p-4 gap-4">
+          {firstFiveSimilarMovies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
         </div>

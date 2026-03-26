@@ -1,3 +1,4 @@
+import { GenresMain } from "@/components/ui/genres";
 import MovieCard from "@/components/ui/MovieCard";
 import { getSimilarMovies } from "@/lib/api/get-similar-movies";
 
@@ -10,7 +11,7 @@ export default async function Similar({ searchParams }: SimilarType) {
   const { results } = await getSimilarMovies(movieId, "1");
 
   return (
-    <div>
+    <div className="lg:px-75">
       <div className=" flex justify-evenly pt-2 pb-3 items-center lg:justify-between lg:px-20">
         <p className="font-bold text-2xl">More Like This</p>
       </div>
@@ -19,6 +20,7 @@ export default async function Similar({ searchParams }: SimilarType) {
           <MovieCard key={movie.id} movie={movie} />
         ))}
       </div>
+      <GenresMain />
     </div>
   );
 }

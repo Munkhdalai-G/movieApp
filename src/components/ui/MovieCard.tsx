@@ -9,7 +9,7 @@ type MovieCardProps = {
 export default function MovieCard({ movie }: MovieCardProps) {
   return (
     <Link href={`/movie/${movie.id}`}>
-      <div>
+      <div className="">
         <img
           src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
           alt={movie.title}

@@ -171,7 +171,7 @@ export default function Header() {
 
           <div className="flex gap-3 items-center lg:pr-15">
             <button
-              className="border rounded-md lg:p-1.5"
+              className="border rounded-md lg:p-1.5 lg:hidden"
               onClick={() => {
                 setIsSearchOpen(true);
                 setTimeout(() => mobileInputRef.current?.focus(), 50);

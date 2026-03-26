@@ -24,7 +24,7 @@ export default async function Heros({
   );
 
   return (
-    <Carousel className="w-full relative">
+    <Carousel className="w-full relative lg:px-20">
       <CarouselContent>
         {movies.map((movie, index) => (
           <CarouselItem key={movie.id}>
@@ -67,8 +67,8 @@ export default async function Heros({
       </CarouselContent>
 
       {/* Buttons positioned on left/right edges of the image (50% of lg grid = 50% width) */}
-      <CarouselPrevious className="hidden lg:flex absolute left-2 top-1/2 -translate-y-1/2 z-10 dark: text-white" />
-      <CarouselNext className="hidden lg:flex absolute left-[calc(100%-3rem)] top-1/2 -translate-y-1/2 z-10 dark: text-white" />
+      <CarouselPrevious className="hidden lg:flex absolute left-2 top-1/2 -translate-y-1/2 z-10 dark:text-white text-black" />
+      <CarouselNext className="hidden lg:flex absolute left-[calc(100%-3rem)] top-1/2 -translate-y-1/2 z-10 dark:text-white text-black" />
     </Carousel>
   );
 }

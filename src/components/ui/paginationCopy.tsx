@@ -17,7 +17,7 @@ export default function PaginationCopy({
   pages,
 }: PaginationProps) {
   return (
-    <Pagination>
+    <Pagination className="lg:py-4">
       <PaginationContent>
         {/* Go to first page */}
         <PaginationItem>

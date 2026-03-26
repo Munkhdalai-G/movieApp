@@ -14,14 +14,17 @@ export default async function Home({
   return (
     <SkeletonTheme baseColor="#1f1f1f" highlightColor="#2c2c2c">
       <>
-        <Heros params={params} />
-        <UpComing />
-        <TopRated />
-        <Popular />
-        <GenresMain />
+        <div className="lg:px-75">
+          <Heros params={params} />
+          <UpComing />
+          <TopRated />
+          <Popular />
+        </div>
       </>
     </SkeletonTheme>
   );
 }
+
+
 
 

@@ -8,7 +8,7 @@ export default async function TopRated() {
 
   return (
     <div>
-      <div className=" flex justify-evenly pt-8 pb-3 items-center lg:justify-between lg:px-20">
+      <div className=" flex justify-evenly pt-8 pb-3 items-center lg:justify-between lg:pl-30 lg:pr-50">
         <p className="font-bold text-2xl">Top Rated</p>
         <Link href="toprated">
           <button className="flex font-semibold text-l items-center">

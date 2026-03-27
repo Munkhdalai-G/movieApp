@@ -36,7 +36,7 @@ function UpComingContent() {
   const pages = generatePagination(currentPage, totalPages);
 
   return (
-    <div className="lg:px-75">
+    <div className="lg:px-20">
       <div className="flex justify-evenly pt-2 pb-3 items-center lg:justify-between lg:px-20">
         <p className="font-bold text-2xl">Up Coming</p>
       </div>

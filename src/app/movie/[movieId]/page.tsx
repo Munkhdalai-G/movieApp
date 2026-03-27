@@ -35,7 +35,7 @@ export default async function Detail({
       .join(", ") || "N/A";
 
   return (
-    <div className="lg:px-130">
+    <div className="lg:px-30">
       <div className="flex px-6 py-3 gap-15">
         <div className="flex flex-col">
           <div className="font-bold">{movie.original_title}</div>
@@ -72,7 +72,7 @@ export default async function Detail({
       <div className="flex gap-3 pl-4 pr-8 py-4">
         <div>
           <img
-            className="w-50 h-40"
+            className="w-50 h-full"
             src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
             alt=""
           />
@@ -89,7 +89,9 @@ export default async function Detail({
             ))}
           </div>
 
-          <div className="w-50 text-sm leading-relaxed">{movie.overview}</div>
+          <div className="w-120 text-sm leading-relaxed pl-2">
+            {movie.overview}
+          </div>
         </div>
       </div>
       <div className="flex flex-col gap-3">

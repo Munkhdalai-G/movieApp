@@ -24,7 +24,7 @@ export default async function Heros({
   );
 
   return (
-    <Carousel className="w-full relative lg:px-20">
+    <Carousel className="w-full relative lg:p">
       <CarouselContent>
         {movies.map((movie, index) => (
           <CarouselItem key={movie.id}>

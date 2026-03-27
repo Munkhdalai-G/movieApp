@@ -52,7 +52,7 @@ export default function GenrePage({
   const pages = generatePagination(currentPage, totalPages);
 
   return (
-    <div>
+    <div className="lg:px-20">
       <GenresMain />
       <div className="flex justify-evenly pt-2 pb-3 items-center lg:justify-between lg:px-20">
         <p className="font-bold text-2xl capitalize">{genreName}</p>

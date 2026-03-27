@@ -56,7 +56,7 @@ export function GenresMain() {
   }, []);
 
   return (
-    <div className="flex justify-center relative pt-1">
+    <div className="flex justify-center relative pt-1 ">
       <div className="w-90">
         <div className="flex flex-col gap-1 px-4 pt-4 pb-2">
           <h2 className="font-bold text-2xl">Genres</h2>

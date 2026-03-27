@@ -3,8 +3,7 @@ import UpComing from "@/components/ui/upcoming";
 import TopRated from "@/components/ui/toprated";
 import Popular from "@/components/ui/popular";
 import "react-loading-skeleton/dist/skeleton.css";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { GenresMain } from "@/components/ui/genres";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 export default async function Home({
   params,
@@ -14,7 +13,7 @@ export default async function Home({
   return (
     <SkeletonTheme baseColor="#1f1f1f" highlightColor="#2c2c2c">
       <>
-        <div className="lg:px-75">
+        <div className="lg:px-18">
           <Heros params={params} />
           <UpComing />
           <TopRated />
@@ -24,7 +23,3 @@ export default async function Home({
     </SkeletonTheme>
   );
 }
-
-
-
-

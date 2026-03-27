@@ -123,7 +123,7 @@ export default function Header() {
   return (
     <div className="relative ">
       {!isSearchOpen && (
-        <div className="flex justify-between h-6 py-5 items-center px-3 lg:py-7">
+        <div className="flex justify-between h-6 py-5 items-center px-3 lg:py-7 ">
           <Link href="/">
             <div className="flex text-indigo-700 h-7 items-center font-bold lg:pl-15">
               <Film className="stroke-1 p-0.5 lg:p-0" />

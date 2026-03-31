@@ -37,23 +37,28 @@ function SearchContent() {
   const pages = generatePagination(currentPage, totalPages);
 
   return (
-    <div className="px-6 py-8 lg:px-20">
-      <h1 className="text-2xl font-bold mb-6">
-        Results for <span className="text-gray-500">"{query}"</span>
-      </h1>
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        {movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
+    <div className="px-6 py-8 lg:px-20 lg:flex lg:gap-10 lg:pb-80 ">
+      <div>
+        <h1 className="text-2xl font-bold mb-6">
+          Results for <span className="text-gray-500">"{query}"</span>
+        </h1>
+        <div className="grid grid-cols-2 lg:grid-cols-4  gap-4">
+          {movies.slice(0, 8).map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </div>
+        <PaginationCopy
+          currentPage={currentPage}
+          totalPages={totalPages}
+          pages={pages}
+          paramKey="query"
+          paramValue={query}
+        />
       </div>
-      <PaginationCopy
-        currentPage={currentPage}
-        totalPages={totalPages}
-        pages={pages}
-        paramKey="query"
-        paramValue={query}
-      />
-      <GenresMain />
+      <div className="border-r"></div>
+      <div>
+        <GenresMain />
+      </div>
     </div>
   );
 }
